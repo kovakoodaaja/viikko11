@@ -27,33 +27,37 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
     @Override
     public void onBindViewHolder(ContactViewHolder holder, int position) {
 
-        Contact contact = contacts.get(position);
+    Contact contact = contacts.get(position);
 
-        holder.ContactIdName.setText(contact.getFullName());
-        holder.ContactNumberName.setText(contact.getNumber());
-        holder.ContactGroupName.setText(contact.getContactGroup());
+    holder.ContactIdName.setText(contact.getFullName());
+    holder.ContactNumberName.setText(contact.getNumber());
+    holder.ContactGroupName.setText(contact.getContactGroup());
 
-        holder.ContactDelete.setOnClickListener(v -> {
-            int pos = holder.getAdapterPosition();
-            if (pos != RecyclerView.NO_POSITION) {
-                ContactStorage.getInstance().removeContact(pos);
-                notifyItemRemoved(pos);
-            }
-        });
+    if (contact.isShowDetails()) {
+        holder.ContactNumberName.setVisibility(View.VISIBLE);
+        holder.ContactGroupName.setVisibility(View.VISIBLE);
+    } else {
+        holder.ContactNumberName.setVisibility(View.GONE);
+        holder.ContactGroupName.setVisibility(View.GONE);
+    }
 
-        if (contact.isShowDetails()) {
-            holder.ContactNumberName.setVisibility(View.VISIBLE);
-            holder.ContactGroupName.setVisibility(View.VISIBLE);
-        } else {
-            holder.ContactNumberName.setVisibility(View.GONE);
-            holder.ContactGroupName.setVisibility(View.GONE);
+    holder.ContactDelete.setOnClickListener(v -> {
+        int pos = holder.getBindingAdapterPosition();
+        if (pos != RecyclerView.NO_POSITION) {
+            ContactStorage.getInstance().removeContact(pos);
+            notifyItemRemoved(pos);
         }
+    });
 
-        holder.ContactDetails.setOnClickListener(v -> {
-            contact.setShowDetails(!contact.isShowDetails());
-            notifyItemChanged(holder.getAdapterPosition());
-        });
+    holder.ContactDetails.setOnClickListener(v -> {
+        int pos = holder.getBindingAdapterPosition();
+        if (pos != RecyclerView.NO_POSITION) {
+            Contact c = contacts.get(pos);
+            c.setShowDetails(!c.isShowDetails());
+            notifyItemChanged(pos);
         }
+    });
+}
 
     @Override
     public int getItemCount() {
