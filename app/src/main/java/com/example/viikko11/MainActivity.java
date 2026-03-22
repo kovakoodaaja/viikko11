@@ -12,6 +12,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView ListContactsRV;
@@ -39,4 +43,32 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AddContactActivity.class);
             startActivity(intent);
         }
+
+        public void sortAlphabetically(View view) {
+            Collections.sort(ContactStorage.getInstance().getContacts(),
+                    (c1, c2) -> c1.getFirstName().compareToIgnoreCase(c2.getFirstName()));
+
+            ListContactsRV.getAdapter().notifyDataSetChanged();
+        }
+
+        public void sortByGroup(View view) {
+            ArrayList<Contact> original = ContactStorage.getInstance().getContacts();
+
+            ArrayList<Contact> work = new ArrayList<>();
+            ArrayList<Contact> personal = new ArrayList<>();
+
+            for (Contact c : original) {
+                if (c.getContactGroup().equals("Työt")) {
+                    work.add(c);
+                } else {
+                    personal.add(c);
+                }
+            }
+
+            original.clear();
+            original.addAll(work);
+            original.addAll(personal);
+
+            ListContactsRV.getAdapter().notifyDataSetChanged();
+    }
 }

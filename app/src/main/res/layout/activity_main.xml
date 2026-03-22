@@ -28,19 +28,28 @@
 
     <ImageView
         android:id="@+id/SortByGroupButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="sortByGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/SortAlphabeticallyButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/outline_chevron_line_up_24" />
 
     <ImageView
         android:id="@+id/SortAlphabeticallyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="344dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="sortAlphabetically"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/outline_custom_typography_24"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/outline_custom_typography_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
