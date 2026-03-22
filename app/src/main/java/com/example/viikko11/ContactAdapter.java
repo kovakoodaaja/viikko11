@@ -1,6 +1,7 @@
 package com.example.viikko11;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,10 +34,26 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
         holder.ContactGroupName.setText(contact.getContactGroup());
 
         holder.ContactDelete.setOnClickListener(v -> {
-            ContactStorage.getInstance().removeContact(position);
-            notifyDataSetChanged();
+            int pos = holder.getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+                ContactStorage.getInstance().removeContact(pos);
+                notifyItemRemoved(pos);
+            }
         });
-    }
+
+        if (contact.isShowDetails()) {
+            holder.ContactNumberName.setVisibility(View.VISIBLE);
+            holder.ContactGroupName.setVisibility(View.VISIBLE);
+        } else {
+            holder.ContactNumberName.setVisibility(View.GONE);
+            holder.ContactGroupName.setVisibility(View.GONE);
+        }
+
+        holder.ContactDetails.setOnClickListener(v -> {
+            contact.setShowDetails(!contact.isShowDetails());
+            notifyItemChanged(holder.getAdapterPosition());
+        });
+        }
 
     @Override
     public int getItemCount() {

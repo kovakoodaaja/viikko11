@@ -5,6 +5,8 @@ public class Contact {
     private String lastName;
     private String number;
     private String contactGroup;
+    private boolean showDetails = false;
+
 
     public Contact(String firstName, String lastName, String number, String contactGroup) {
         this.firstName = firstName;
@@ -13,11 +15,19 @@ public class Contact {
         this.contactGroup = contactGroup;
     }
 
-    public String getFirstName() {
+    public boolean isShowDetails() {
+        return showDetails;
+    }
+
+    public void setShowDetails(boolean showDetails) {
+        this.showDetails = showDetails;
+    }
+
+    public String getFirstName(){
         return firstName;
     }
 
-    public String getLastName() {
+    public String getLastName(){
         return lastName;
     }
 
