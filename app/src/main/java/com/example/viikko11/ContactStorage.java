@@ -26,6 +26,8 @@ public class ContactStorage {
     }
 
     public void removeContact(int index) {
-        contacts.remove(index);
+        if (index >= 0 && index < contacts.size()) {
+            contacts.remove(index);
+        }
     }
 }
